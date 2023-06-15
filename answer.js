@@ -154,24 +154,139 @@ db.burger.find( {meat: {$ne: 'beef'}})
 
 // find the first burger with cheese
 
+db.burger.findOne({cheese:{$ne:'false'}})
+{
+  _id: ObjectId("648b37177d28536a54c61af8"),
+  meat: 'beef',
+  cheese: 'pepperjack',
+  toppings: [ 'onions', 'pickles' ]
+}
 
 
 // find one and update the first burger with cheese to have a property of 'double cheese'
+db.burger.findOneAndUpdate({cheese:{$ne:'false'}},{$set:{cheese: 'double cheese'}})
 
-
+[
+    {
+      _id: ObjectId("648b361a7d28536a54c61af6"),
+      meat: 'beef',
+      cheese: 'false',
+      toppings: [ 'ketchup', 'onions', 'pickles' ]
+    },
+    {
+      _id: ObjectId("648b366d7d28536a54c61af7"),
+      meat: 'beef',
+      cheese: 'false',
+      toppings: [ 'ketchup', 'onions', 'pickles' ]
+    },
+    {
+      _id: ObjectId("648b37177d28536a54c61af8"),
+      meat: 'beef',
+      cheese: 'double cheese',
+      toppings: [ 'onions', 'pickles' ]
+    },
+    {
+      _id: ObjectId("648b37647d28536a54c61af9"),
+      meat: 'turkey',
+      cheese: 'false',
+      toppings: [ 'tomato' ]
+    },
+    {
+      _id: ObjectId("648b379a7d28536a54c61afa"),
+      meat: 'bean',
+      cheese: 'queso',
+      toppings: [ 'lettuce', 'tomato', 'cilantro' ]
+    }
+  ]
+  
 // find the burger you updated to have double cheese
+
+db.burger.find({cheese: 'double cheese'})
+
+[
+  {
+    _id: ObjectId("648b37177d28536a54c61af8"),
+    meat: 'beef',
+    cheese: 'double cheese',
+    toppings: [ 'onions', 'pickles' ]
+  }
+]
 
 
 // find and update all the beef burgers to be 'veggie'
+db.burger.updateMany({meat: 'beef'}, {$set:{meat: 'veggie'}})
 
+[
+    {
+      _id: ObjectId("648b361a7d28536a54c61af6"),
+      meat: 'veggie',
+      cheese: 'false',
+      toppings: [ 'ketchup', 'onions', 'pickles' ]
+    },
+    {
+      _id: ObjectId("648b366d7d28536a54c61af7"),
+      meat: 'veggie',
+      cheese: 'false',
+      toppings: [ 'ketchup', 'onions', 'pickles' ]
+    },
+    {
+      _id: ObjectId("648b37177d28536a54c61af8"),
+      meat: 'veggie',
+      cheese: 'double cheese',
+      toppings: [ 'onions', 'pickles' ]
+    },
+    {
+      _id: ObjectId("648b37647d28536a54c61af9"),
+      meat: 'turkey',
+      cheese: 'false',
+      toppings: [ 'tomato' ]
+    },
+    {
+      _id: ObjectId("648b379a7d28536a54c61afa"),
+      meat: 'bean',
+      cheese: 'queso',
+      toppings: [ 'lettuce', 'tomato', 'cilantro' ]
+    }
+  ]
 
 // delete one of your veggie burgers
 // BEWARE: db.burger.remove({meat: 'veggie'}) DELETES ALL!!!  DO NOT USE!
 
+db.burger.deleteOne({meat: 'veggie'})
+
+[
+    {
+      _id: ObjectId("648b366d7d28536a54c61af7"),
+      meat: 'veggie',
+      cheese: 'false',
+      toppings: [ 'ketchup', 'onions', 'pickles' ]
+    },
+    {
+      _id: ObjectId("648b37177d28536a54c61af8"),
+      meat: 'veggie',
+      cheese: 'double cheese',
+      toppings: [ 'onions', 'pickles' ]
+    },
+    {
+      _id: ObjectId("648b37647d28536a54c61af9"),
+      meat: 'turkey',
+      cheese: 'false',
+      toppings: [ 'tomato' ]
+    },
+    {
+      _id: ObjectId("648b379a7d28536a54c61afa"),
+      meat: 'bean',
+      cheese: 'queso',
+      toppings: [ 'lettuce', 'tomato', 'cilantro' ]
+    }
+  ]
 
 // drop the collection
 //Expected Output
 //true
+
+db.burger.drop()
+
 
 // drop the database
 //Expected Output
@@ -179,6 +294,8 @@ db.burger.find( {meat: {$ne: 'beef'}})
 //   "dropped": "burgers",
 //   "ok": 1
 // }
+
+db.dropDataBase();
 
 
 //
